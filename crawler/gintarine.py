@@ -53,7 +53,7 @@ product_url.append(initial_url)
 for link in data.xpath("//div//a[@class='paginator__item paginator__page']/@data-page"):
     product_url.append(initial_url + '&pagenumber=' + link)
     k=k+1;
-print(product_url)
+#print(product_url)
 
 ####
 medical_name = []
@@ -77,20 +77,22 @@ for url in product_url:
             clean_price = clean_price_match.group()
             # Pakeičiame kablelį į tašką ir konvertuojame į skaičių
             clean_price = float(clean_price.replace(',', '.'))
-            print(clean_price)
+            #print(clean_price)
         medical_price.append(clean_price)  # Pridėti teksto apdorojimą, jei reikia
 
     # Išvedamas arba apdorojamas surinktas duomenys
 
 
 # Išvedamas arba apdorojamas surinktas duomenys
-print(medical_name)
-print(medical_price)
+#print(medical_name)
+#print(medical_price)
 with open("Medical.csv", encoding='utf-8',mode="w") as file_writer:
     fieldnames=['Pavadinimas', 'Kaina', 'Linkas']
     csv_write = csv.DictWriter(file_writer, fieldnames, delimiter = ',')
     csv_write.writeheader()
     #csv_write.writerow
+    #print({"Pavadinimas",   "Kaina"      , "Linkas" })
     for i in range(k):
+        print({"Pavadinimas": medical_name[i], "Kaina": medical_price[i], "Linkas": product_url[i]})
         #clean_price_match[i] = re.search(r"\d+,\d{2}", medical_price[i])
         csv_write.writerow({"Pavadinimas": medical_name[i], "Kaina": medical_price[i], "Linkas": product_url[i]})
