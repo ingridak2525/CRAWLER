@@ -58,20 +58,14 @@ def scrape_and_save_data(initial_query, time_limit=60, return_format='csv'):
 
     product_url.append(initial_url)
 #//a[contains(@class, 'paginator__page')]/@href
-
     for link in data.xpath("//div//a[@class='paginator__item paginator__page']/@data-page"):
       product_url.append(initial_url + '&pagenumber=' + link)
-      k=k+1;
-
-    for link in data.xpath("//div//a[@class='paginator__item paginator__page']/@data-page"):
-       product_url.append(initial_url + '&pagenumber=' + link)
-       k=k+1;
-
+      k=k+1
 #print(product_url)
 
 ####
 
-    for url in product_url:
+      for url in product_url:
         page_response = requests.get(url, cookies=cookies, headers=headers)
         page_data = HTML(page_response.text)
 
@@ -84,14 +78,14 @@ def scrape_and_save_data(initial_query, time_limit=60, return_format='csv'):
          prices = page_data.xpath("//span[contains(@class, 'product__price--regular')]/text()")
 
         # Apdorojimas arba informacijos saugojimas
-        for price in prices:
-            clean_price_match = re.search(r"\d+,\d{2}", price)
-            if clean_price_match:
-               clean_price = clean_price_match.group()
+         for price in prices:
+              clean_price_match = re.search(r"\d+,\d{2}", price)
+              if clean_price_match:
+                clean_price = clean_price_match.group()
             # Pakeičiame kablelį į tašką ir konvertuojame į skaičių
-               clean_price = float(clean_price.replace(',', '.'))
+                clean_price = float(clean_price.replace(',', '.'))
             #print(clean_price)
-        medical_price.append(clean_price)  # Pridėti teksto apdorojimą, jei reikia
+         medical_price.append(clean_price)  # Pridėti teksto apdorojimą, jei reikia
 
     # Išvedamas arba apdorojamas surinktas duomenys
 
@@ -99,11 +93,10 @@ def scrape_and_save_data(initial_query, time_limit=60, return_format='csv'):
 # Išvedamas arba apdorojamas surinktas duomenys
 #print(medical_name)
 #print(medical_price)
-
-        with open("Medical.csv", encoding='utf-8',mode="w") as file_writer:
-         fieldnames=['Pavadinimas', 'Kaina', 'Linkas']
-         csv_write = csv.DictWriter(file_writer, fieldnames, delimiter = ',')
-         csv_write.writeheader()
+      with open("Medical.csv", encoding='utf-8',mode="w") as file_writer:
+        fieldnames=['Pavadinimas', 'Kaina', 'Linkas']
+        csv_write = csv.DictWriter(file_writer, fieldnames, delimiter = ',')
+        csv_write.writeheader()
     #csv_write.writerow
     #print({"Pavadinimas",   "Kaina"      , "Linkas" })
         for i in range(k):
