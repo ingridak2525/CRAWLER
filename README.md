@@ -1,34 +1,44 @@
-Using a package manager
-You can install the crawler as a package: Using pip:
+#  my first work  
 
-pip install example_data_crawler
-Or using poetry:
+Welcome to the Pharmacy medicines for children 
 
-poetry add example_data_crawler
-Cloning the repository
-You can also clone the repository and install the dependencies. Using poetry:
+## Getting Started
 
-git clone https://github.com/Foxicution/data_crawler_examples
-cd data_crawler_examples
-poetry install
-Afterwards you can checkout and run some example scripts, e.g.:
+Follow these steps to get started with this  journey:
+
+### Prerequisites
+
+Make sure you have [Python](https://www.python.org/downloads/) (version 3.10 or later) installed on your system.
+
+### Installation
+
+1. Clone this repository:
+
+   ```bash
+   git clone https://github.com/ingridak2525/mokausi_data_crawler
+   ```
+
+2. Install dependencies using [Poetry](https://python-poetry.org/):
+
+   ```bash
+   poetry install
+   ```
+
+### Usage
 
 
-Usage
-As a module
-from example_data_crawler import crawl
+3. As a module
+    ```from mokausi_data_crawler import crawl
 
 print(crawl("gintarine", "df", query="vaikams" )
 For more examples look in the examples directory.
 
-Structure
-The project is structured as follows:
 
-example_data_crawler/: Main package directory.
-__init__.py: Package initialization file.
-crawler/: Directory containing individual crawler scripts.
-__init__.py: Initialization file for crawlers module.
-gintarine.py: Crawler for the gintarine website.
-__init__.py: Initialization file for tests.
-License
-This project is licensed under the MIT license.
+
+
+
+
+
+
+
+
