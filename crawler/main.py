@@ -5,7 +5,7 @@ import csv
 import re
 from requests import get
 
-def scrape_and_save_data(initial_query):
+def scrape_and_save_data(initial_query, time_limit=60, return_format='csv'):
 
    cookies = {
     'ARRAffinity': '667d9ee9de5abee7473f2841dda6efd732f47b01481206fe0e6986367eff378b',
@@ -105,4 +105,6 @@ def scrape_and_save_data(initial_query):
           csv_write.writerow({"Pavadinimas": medical_name[i], "Kaina": medical_price[i], "Linkas": product_url[i]})
 
 if __name__=="__main__":
-   scrape_and_save_data("vaikams")
+   initial_query = "vaikams"
+   scrape_and_save_data(initial_query, time_limit=60, return_format='csv' )
+
