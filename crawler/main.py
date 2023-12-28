@@ -6,7 +6,7 @@ import re
 from requests import get
 
 def scrape_and_save_data(initial_query, time_limit=60, return_format='csv'):
-
+   start_time = time.time()
    cookies = {
     'ARRAffinity': '667d9ee9de5abee7473f2841dda6efd732f47b01481206fe0e6986367eff378b',
     'ARRAffinitySameSite': '667d9ee9de5abee7473f2841dda6efd732f47b01481206fe0e6986367eff378b',
@@ -72,6 +72,9 @@ def scrape_and_save_data(initial_query, time_limit=60, return_format='csv'):
 ####
 
     for url in product_url:
+        if time.time() - start_time > time_limit:
+            print("Viršytas maksimalus laiko limitas.")
+            break
         page_response = requests.get(url, cookies=cookies, headers=headers)
         page_data = HTML(page_response.text)
 
@@ -83,7 +86,7 @@ def scrape_and_save_data(initial_query, time_limit=60, return_format='csv'):
          medical_name.append(item.strip())  # Pridėti teksto apdorojimą, jei reikia
          prices = page_data.xpath("//span[contains(@class, 'product__price--regular')]/text()")
 
-        # Apdorojimas arba informacijos saugojimas
+
         for price in prices:
             clean_price_match = re.search(r"\d+,\d{2}", price)
             if clean_price_match:
@@ -96,6 +99,7 @@ def scrape_and_save_data(initial_query, time_limit=60, return_format='csv'):
     # Išvedamas arba apdorojamas surinktas duomenys
 
 
+        # Apdorojimas arba informacijos saugojimas
 # Išvedamas arba apdorojamas surinktas duomenys
 #print(medical_name)
 #print(medical_price)
@@ -110,6 +114,10 @@ def scrape_and_save_data(initial_query, time_limit=60, return_format='csv'):
           print({"Pavadinimas": medical_name[i], "Kaina": medical_price[i], "Linkas": product_url[i]})
           #clean_price_match[i] = re.search(r"\d+,\d{2}", medical_price[i])
           csv_write.writerow({"Pavadinimas": medical_name[i], "Kaina": medical_price[i], "Linkas": product_url[i]})
+
+    total_duration = time.time() - start_time
+    if time_limit >= total_duration:
+      print(f"Time for crowel: {total_duration} ")
 
 if __name__=="__main__":
    initial_query = "vaikams"
