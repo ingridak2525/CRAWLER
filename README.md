@@ -15,7 +15,7 @@ Make sure you have [Python](https://www.python.org/downloads/) (version 3.10 or 
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/ingridak2525/mokausi_data_crawler
+   git clone https://github.com/ingridak2525/CRAWLER
    ```
 
 2. Install dependencies using [Poetry](https://python-poetry.org/):
